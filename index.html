@@ -2,479 +2,125 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10131e">
-<title>WHAT WOULD YOU DO? | 선택이 만드는 당신</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11131c">
+<title>WHAT WOULD YOU DO? | 선택으로 읽는 성향</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
-:root{--bg:#10131e;--panel:#191e2d;--panel2:#20283a;--text:#f4f3ef;--muted:#aab1c2;--line:#343d52;--gold:#f0c778;--mint:#8fd6c2;--violet:#a99cff;--radius:22px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans','Noto Sans KR',sans-serif;background:radial-gradient(ellipse at top,#242b43 0%,#10131e 55%);color:var(--text);min-height:100vh;padding:22px}
-button{font:inherit;cursor:pointer;transition:.2s}
-button:hover{transform:translateY(-2px)}
-button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-button:disabled{opacity:.35;cursor:not-allowed;transform:none}
-.container{max-width:980px;margin:auto}
-header{display:flex;justify-content:space-between;align-items:center;margin:0 auto 36px;gap:12px}
-.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.4px}
-.brand-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,#f0c778,#a66e37);color:#161824;font-size:20px}
-.header-note{font-size:11px;letter-spacing:2px;color:var(--muted)}
-.page{display:none;animation:enter .35s ease}
-.page.active{display:block}
-@keyframes enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
-.hero{text-align:center;padding:30px 12px 28px}
-.kicker{font-size:11px;letter-spacing:2.6px;font-weight:800;color:var(--gold);margin-bottom:16px}
-h1{font-size:clamp(34px,7vw,64px);line-height:1.15;letter-spacing:-2px;margin-bottom:18px}
-h1 .accent{color:var(--gold)}
-.hero p{max-width:620px;margin:0 auto 25px;color:var(--muted);line-height:1.9;font-size:14px}
-.btn{border:0;border-radius:13px;padding:15px 23px;font-weight:800}
-.btn-primary{background:linear-gradient(135deg,#f3d28f,#dba95d);color:#171925;box-shadow:0 8px 25px #dba95d20}
-.btn-secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
-.world-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:24px 0}
-.world{position:relative;min-height:160px;overflow:hidden;border-radius:17px;border:1px solid #ffffff18;background:#242b40;display:flex;align-items:end;padding:14px}
-.world:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,#090c15dd 100%)}
-.world .emoji{position:absolute;top:15px;left:15px;font-size:30px;filter:drop-shadow(0 4px 8px #0008)}
-.world strong,.world small{position:relative;z-index:1;display:block}
-.world strong{font-size:13px;margin-bottom:5px}
-.world small{font-size:10px;color:#c0c7d7;line-height:1.5}
-.zombie{background:radial-gradient(circle at 70% 25%,#6b8d6a,#273e3b 48%,#151c2a)}
-.kingdom{background:radial-gradient(circle at 70% 20%,#b57c56,#59404a 45%,#1b2031)}
-.space{background:radial-gradient(circle at 65% 20%,#6a70bb,#27345b 45%,#131827)}
-.island{background:radial-gradient(circle at 70% 25%,#75b9a6,#276d72 45%,#152c3b)}
-.mystery{background:radial-gradient(circle at 65% 20%,#a58bd1,#51436e 45%,#1a1b30)}
-.info{background:#191e2d;border:1px solid var(--line);border-radius:16px;padding:17px 20px;color:var(--muted);font-size:12px;line-height:1.8}
-.quiz-card,.report-card{background:linear-gradient(160deg,#1d2435,#171b29);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,4vw,34px);box-shadow:0 22px 60px #0002}
-.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.world-tag{font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--gold)}
-.counter{font-size:12px;color:var(--muted)}
-.progress{height:5px;border-radius:8px;background:#33394b;overflow:hidden;margin-bottom:26px}
-.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--gold));transition:width .3s}
-.scene{border-radius:17px;min-height:165px;padding:24px;display:flex;align-items:end;margin-bottom:24px;position:relative;overflow:hidden;border:1px solid #ffffff16}
-.scene:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0d1019ed,transparent 85%)}
-.scene .scene-icon{position:absolute;right:22px;top:17px;font-size:62px;filter:drop-shadow(0 8px 12px #0005)}
-.scene h2{position:relative;z-index:1;font-size:clamp(21px,4vw,30px);line-height:1.4;letter-spacing:-.6px;max-width:680px}
-.scene.zombie{background:radial-gradient(circle at 80% 15%,#658b70,#30443c 50%,#19232d)}
-.scene.kingdom{background:radial-gradient(circle at 80% 15%,#ba8b66,#684b58 50%,#242438)}
-.scene.space{background:radial-gradient(circle at 80% 15%,#7378c6,#38456d 50%,#1b2135)}
-.scene.island{background:radial-gradient(circle at 80% 15%,#83c7ad,#31747a 50%,#1a3544)}
-.scene.mystery{background:radial-gradient(circle at 80% 15%,#b29ae2,#625181 50%,#24253d)}
-.prompt{color:var(--muted);font-size:13px;line-height:1.85;margin:-7px 0 20px}
-.options{display:grid;gap:11px}
-.option{width:100%;display:flex;align-items:center;gap:13px;text-align:left;padding:16px;border-radius:13px;border:1px solid var(--line);background:#202638;color:var(--text);font-size:13px;line-height:1.7}
-.option:hover{border-color:#8b9aab;background:#273148}
-.option.chosen{border-color:var(--mint);background:#21363b}
-.letter{width:27px;height:27px;flex:0 0 27px;border:1px solid #566176;border-radius:8px;display:grid;place-items:center;color:var(--gold);font-weight:800;font-size:11px}
-.option.chosen .letter{background:var(--mint);color:#10201e;border-color:var(--mint)}
-.nav{display:flex;justify-content:space-between;gap:12px;margin-top:25px}
-.nav button{min-width:115px}
-.result-head{text-align:center;padding:20px 12px 28px}
-.result-head h1{font-size:clamp(30px,6vw,48px)}
-.result-head p{font-size:13px;line-height:1.9;color:var(--muted)}
-.type-hero{border:1px solid #665a3e;border-radius:22px;padding:28px;background:radial-gradient(ellipse at top right,#5c4d2b,#24283a 55%,#1b2030);margin-bottom:22px}
-.type-hero .type-icon{font-size:40px;margin-bottom:14px}
-.type-hero .kicker{margin-bottom:10px}
-.type-hero h2{font-size:clamp(25px,5vw,38px);letter-spacing:-1px;margin-bottom:13px}
-.type-hero p{font-size:14px;line-height:1.9;color:#d0d3dd}
-.section-title{font-size:17px;margin:24px 0 14px;letter-spacing:-.4px}
-.scores{display:grid;gap:12px}
-.score-row{background:#1a2030;border:1px solid var(--line);border-radius:15px;padding:17px}
-.score-top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
-.score-name{font-weight:800;font-size:13px}
-.score-en{color:var(--muted);font-size:10px;margin-top:4px}
-.score-num{font-size:20px;font-weight:800;color:var(--mint)}
-.bar{height:7px;border-radius:8px;background:#33394b;overflow:hidden;margin-bottom:10px}
-.bar div{height:100%;background:linear-gradient(90deg,#76bba9,#e6c17b);border-radius:8px}
-.score-row p{font-size:12px;line-height:1.8;color:var(--muted)}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.insight{background:#1a2030;border:1px solid var(--line);border-radius:16px;padding:20px}
-.insight .icon{font-size:22px;margin-bottom:10px}
-.insight h3{font-size:14px;margin-bottom:9px}
-.insight p{font-size:12px;line-height:1.9;color:var(--muted)}
-.report-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:25px 0}
-.disclaimer{text-align:center;color:#8e97aa;font-size:11px;line-height:1.9;margin:18px 0}
-footer{text-align:center;color:#778096;font-size:10px;letter-spacing:1px;line-height:1.8;margin:35px 0 10px}
-@media(max-width:700px){body{padding:15px}.world-grid{grid-template-columns:repeat(2,1fr)}.world:last-child{grid-column:span 2;min-height:130px}.header-note{font-size:9px}.hero{padding:22px 4px}.quiz-card{padding:19px}.scene{min-height:150px;padding:20px}.scene .scene-icon{font-size:48px}.two-col{grid-template-columns:1fr}.nav button{min-width:0;flex:1}}
-@media print{body{background:white;color:#171925;padding:0}.container{max-width:100%}header,footer,.report-actions{display:none!important}.page{display:none!important}#result-page{display:block!important}.type-hero,.score-row,.insight{break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
-
-/* Visual refinement: richer atmosphere, clearer hierarchy, and more tactile controls */
-:root{
- --bg:#090d18;--panel:#141b2b;--panel2:#1d2940;--text:#f7f5ef;--muted:#aeb8cc;
- --line:#34415b;--gold:#f6d28d;--mint:#9ce5d0;--violet:#b6a8ff;
- --radius:24px;
-}
-body{
- background:
-  radial-gradient(ellipse at 12% 4%,#3a355d70 0,transparent 34%),
-  radial-gradient(ellipse at 88% 18%,#174d5260 0,transparent 32%),
-  linear-gradient(155deg,#0a0e19 0%,#111729 48%,#090d17 100%);
-}
-body:before{
- content:"";position:fixed;inset:0;pointer-events:none;opacity:.14;z-index:-1;
- background-image:radial-gradient(#dce6ff 0.7px,transparent .7px);
- background-size:28px 28px;
-}
-header{margin-bottom:28px}
-.brand{letter-spacing:1.1px}
-.brand-icon{width:44px;height:44px;border-radius:15px;box-shadow:0 0 28px #f0c77830}
-.header-note{letter-spacing:2.4px}
-.hero{padding:42px 12px 32px}
-.kicker{letter-spacing:3.4px}
-h1{line-height:1.12;text-shadow:0 7px 35px #0005}
-h1 .accent{background:linear-gradient(100deg,#fff0bd,#f0bf72 55%,#d9a5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{font-size:15px}
-.btn{border-radius:15px;position:relative;overflow:hidden}
-.btn-primary{background:linear-gradient(115deg,#ffe6aa,#eab96e 52%,#d59a55);box-shadow:0 8px 30px #eab96e25,inset 0 1px #fff8}
-.btn-primary:hover{box-shadow:0 12px 38px #eab96e40}
-.btn-secondary{background:linear-gradient(145deg,#232d44,#171e30);border-color:#3b4964}
-.world-grid{gap:14px;margin:28px 0}
-.world{min-height:178px;border-radius:20px;box-shadow:inset 0 1px #ffffff12,0 12px 30px #0002;transition:transform .25s,border-color .25s}
-.world:hover{transform:translateY(-5px);border-color:#f0d49a75}
-.world .emoji{font-size:35px;filter:drop-shadow(0 5px 12px #0008)}
-.world strong{font-size:14px}
-.world small{font-size:11px}
-.info{border-radius:18px;background:linear-gradient(145deg,#1a2234d9,#121827e8);border-color:#3a4560;padding:20px 22px}
-.quiz-card,.report-card{background:linear-gradient(145deg,#1b2437f5,#121827f5);border-color:#3c4965;box-shadow:0 25px 80px #0004,inset 0 1px #ffffff08}
-.progress{height:6px;background:#343e55}
-.progress div{background:linear-gradient(90deg,#8be0c8,#f4d18d,#b9a6ff);box-shadow:0 0 12px #9ce5d055}
-.scene{border-radius:20px;box-shadow:inset 0 1px #ffffff16,0 12px 35px #0002}
-.scene h2{text-shadow:0 3px 20px #0008}
-.prompt{font-size:14px}
-.option{border-radius:16px;background:linear-gradient(145deg,#242e44,#1a2234);border-color:#3a4761;padding:17px 18px;font-size:14px;box-shadow:inset 0 1px #ffffff05}
-.option:hover{border-color:#a9b8d3;background:linear-gradient(145deg,#2b3851,#202b41)}
-.option.chosen{border-color:#9ce5d0;background:linear-gradient(145deg,#23413f,#1b3037);box-shadow:0 0 0 1px #9ce5d018}
-.letter{border-radius:9px;background:#171f31}
-.type-hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 100% 0%,#77643b70,transparent 45%),linear-gradient(145deg,#292b40,#171c2b);border-color:#8c754b;box-shadow:0 20px 55px #0003}
-.type-hero:after{content:"✦";position:absolute;right:24px;top:12px;font-size:90px;color:#f4d28a12;pointer-events:none}
-.type-hero .type-icon{font-size:48px;filter:drop-shadow(0 8px 14px #0005)}
-.type-hero h2{background:linear-gradient(100deg,#fff1c8,#f3c77e);-webkit-background-clip:text;background-clip:text;color:transparent}
-.section-title{font-size:19px;margin-top:30px}
-.score-row,.insight{background:linear-gradient(145deg,#1b2436,#141b2a);border-color:#35435d;border-radius:18px;box-shadow:inset 0 1px #ffffff05}
-.score-num{color:#a3ead5}
-.bar{background:#343e55}
-.bar div{background:linear-gradient(90deg,#7ed8bf,#f0cd86);box-shadow:0 0 12px #9ce5d025}
-.insight .icon{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#2b354b;margin-bottom:13px}
-.insight h3{font-size:15px}
-.report-actions{margin-top:30px}
-.disclaimer{max-width:720px;margin:22px auto}
-footer{letter-spacing:1.8px}
-@media(max-width:700px){
- .hero{padding:28px 4px 24px}
- .world-grid{gap:10px}
- .world{min-height:150px;padding:13px;border-radius:17px}
- .quiz-card{border-radius:21px}
- .option{padding:15px}
- .type-hero{padding:23px}
-}
-
-/* Question scene illustrations */
-.scene{
-  min-height:270px;
-  padding:24px;
-  align-items:flex-end;
-  isolation:isolate;
-}
-.scene-art{
-  position:absolute;inset:0 0 0 0;overflow:hidden;
-  background:linear-gradient(145deg,#26364b,#101827);
-  z-index:0;
-}
-.scene-art:before,.scene-art:after{
-  content:"";position:absolute;bottom:-24%;border-radius:50% 50% 0 0;
-  width:80%;height:70%;background:#0c1422;opacity:.65;
-}
-.scene-art:before{left:-15%;transform:rotate(-8deg)}
-.scene-art:after{right:-20%;height:58%;background:#172333;transform:rotate(10deg)}
-.art-glow{
-  position:absolute;width:230px;height:230px;border-radius:50%;
-  right:12%;top:-30%;background:#ffffff20;filter:blur(2px);
-  box-shadow:0 0 80px 35px #ffffff0b;
-}
-.art-landscape{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(160deg,transparent 45%,#090f1b99 100%),
-    radial-gradient(ellipse at 75% 30%,#ffffff1b,transparent 42%);
-}
-.art-object{
-  position:absolute;right:14%;top:19%;font-size:clamp(74px,13vw,130px);
-  filter:drop-shadow(0 15px 18px #0008);
-  animation:artFloat 4s ease-in-out infinite;
-  z-index:1;
-}
-.art-spark{position:absolute;color:#fff8;font-size:22px;z-index:1}
-.art-spark-one{right:39%;top:22%}.art-spark-two{right:8%;top:48%;font-size:15px}
-.scene h2{z-index:2;max-width:72%;text-shadow:0 3px 22px #000b}
-.scene .scene-icon{display:none}
-.scene:before{z-index:1;background:linear-gradient(0deg,#0d1019f5 0%,#0d101955 42%,transparent 100%)}
-@keyframes artFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
-.scene.zombie .scene-art{background:radial-gradient(ellipse at 76% 24%,#779b76 0%,#38564c 36%,#15202b 100%)}
-.scene.kingdom .scene-art{background:radial-gradient(ellipse at 76% 24%,#d1a06c 0%,#79515e 39%,#202337 100%)}
-.scene.space .scene-art{background:radial-gradient(ellipse at 76% 24%,#858be0 0%,#394875 40%,#121a2c 100%)}
-.scene.island .scene-art{background:radial-gradient(ellipse at 76% 24%,#9de2c7 0%,#347f83 42%,#163346 100%)}
-.scene.mystery .scene-art{background:radial-gradient(ellipse at 76% 24%,#c4a7f0 0%,#6a568b 42%,#20233c 100%)}
-@media(max-width:700px){
- .scene{min-height:230px;padding:19px}
- .art-object{font-size:82px;right:10%;top:18%}
- .scene h2{max-width:85%;font-size:22px}
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+:root{--bg:#11131c;--panel:#1b1e2b;--panel2:#222638;--text:#f4f3f8;--muted:#a5a9bb;--line:#34394d;--gold:#f2c879;--mint:#9ee0cb;--purple:#b5a4ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#343451 0%,var(--bg) 48%);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;padding:22px}
+button{font:inherit;cursor:pointer;transition:.18s ease}button:hover{transform:translateY(-2px)}button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:900px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin:4px 0 30px}.brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.5px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#f2c879,#e88c68);display:grid;place-items:center;color:#1a1b24;font-weight:900}.tag{font-size:11px;color:var(--muted);letter-spacing:1.5px}
+.page{display:none;animation:in .3s ease}.page.active{display:block}@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{text-align:center;padding:24px 0 28px}.eyebrow{color:var(--gold);font-size:11px;letter-spacing:2px;font-weight:800;margin-bottom:15px}.hero h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(38px,7vw,68px);line-height:1.16;letter-spacing:1px;margin:0 0 17px}.hero h1 span{color:var(--gold)}.intro{color:var(--muted);font-size:14px;line-height:1.9;max-width:570px;margin:0 auto 25px}
+.btn{border:0;border-radius:13px;padding:15px 23px;font-weight:800}.primary{background:linear-gradient(135deg,#f2c879,#e8a969);color:#211b17;box-shadow:0 8px 24px #e7ac5b20}.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+.worlds{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:25px 0}.world{border:1px solid var(--line);background:var(--panel);border-radius:15px;padding:15px 10px;text-align:center}.world .emoji{font-size:27px;margin-bottom:8px}.world strong{display:block;font-size:12px}.world small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.note{background:#ffffff08;border:1px solid var(--line);border-radius:13px;padding:15px 17px;color:var(--muted);font-size:12px;line-height:1.8}
+.quizbox{border:1px solid var(--line);background:linear-gradient(180deg,#202437,#171a26);border-radius:24px;overflow:hidden}.scene{min-height:200px;padding:24px;display:flex;align-items:end;position:relative;overflow:hidden;background:linear-gradient(130deg,#4b3047,#20263c 55%,#1a202c)}.scene:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 20%,#f2c87955,transparent 25%),linear-gradient(0deg,#11131cbb,transparent 80%)}.scene:after{content:"";position:absolute;inset:auto 0 0;height:55px;background:linear-gradient(0deg,#11131c88,transparent)}.scene-content{position:relative;z-index:1}.scene-icon{font-size:53px;filter:drop-shadow(0 8px 15px #0007);margin-bottom:10px}.world-label{font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:800}.scene h2{font-size:clamp(22px,4vw,30px);line-height:1.45;margin:8px 0 0;max-width:650px}
+.quizcontent{padding:25px}.progressline{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:10px}.track{height:5px;background:#ffffff12;border-radius:20px;overflow:hidden;margin-bottom:22px}.fill{height:100%;background:linear-gradient(90deg,var(--gold),#f08f70);width:0;transition:width .3s}.situation{color:#d8d9e4;line-height:1.85;font-size:14px;margin:0 0 21px}.choices{display:grid;gap:11px}.choice{display:flex;align-items:flex-start;gap:13px;text-align:left;width:100%;background:#ffffff06;color:var(--text);border:1px solid var(--line);border-radius:14px;padding:16px}.choice:hover,.choice.chosen{background:#f2c87912;border-color:#dcb66d}.letter{flex:0 0 28px;height:28px;border-radius:9px;background:#ffffff10;display:grid;place-items:center;color:var(--gold);font-weight:800;font-size:12px}.choice span:last-child{font-size:14px;line-height:1.7}.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}.nav .btn{min-width:105px}.nav .primary:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.results-head{text-align:center;padding:22px 10px 25px}.results-head .eyebrow{margin-bottom:10px}.results-head h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(30px,6vw,46px);margin:0 0 12px}.results-head p{color:var(--muted);font-size:13px;line-height:1.8}
+.result-hero{border:1px solid #6c5e4c;background:linear-gradient(135deg,#403347,#25283b 60%,#293b3b);border-radius:22px;padding:27px;position:relative;overflow:hidden;margin-bottom:18px}.result-hero:after{content:"✦";position:absolute;right:20px;top:8px;font-size:95px;color:#f2c87920}.result-hero .eyebrow{position:relative;z-index:1}.result-hero h2{font-family:'Black Han Sans',sans-serif;font-size:clamp(27px,5vw,39px);line-height:1.35;margin:5px 0 12px;position:relative;z-index:1}.result-hero p{font-size:14px;line-height:1.9;color:#e0dfea;position:relative;z-index:1;max-width:680px}
+.section{margin:23px 0}.section h3{font-size:16px;margin:0 0 14px}.trait{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;margin:10px 0}.traittop{display:flex;justify-content:space-between;gap:12px;font-size:13px;font-weight:800}.traittop small{font-weight:500;color:var(--muted);margin-left:6px}.score{color:var(--gold);white-space:nowrap}.bar{height:7px;background:#ffffff12;border-radius:10px;margin:12px 0;overflow:hidden}.bar span{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#8e86d8,#f2c879)}.trait p,.reportcard p{color:var(--muted);font-size:13px;line-height:1.85;margin:0}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.reportcard{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:19px}.reportcard h4{margin:0 0 10px;font-size:14px}.reportcard .mini{font-size:20px;margin-bottom:9px}.end{text-align:center;color:var(--muted);font-size:11px;line-height:1.8;margin:25px 0}.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+@media(max-width:620px){body{padding:14px}.top{margin-bottom:18px}.worlds{grid-template-columns:repeat(2,1fr)}.scene{min-height:185px;padding:19px}.quizcontent{padding:19px 15px}.choice{padding:14px}.cards{grid-template-columns:1fr}.result-hero{padding:22px}.tag{font-size:9px}.hero{padding-top:18px}}
+@media print{body{background:white;color:#222;padding:0}.top,.actions,.end{display:none!important}.page{display:none!important}#result.active{display:block!important}.result-hero,.trait,.reportcard{break-inside:avoid;color:#222}.result-hero p,.trait p,.reportcard p{color:#444}}
 </style>
 </head>
 <body>
-<div class="container">
-<header>
-  <div class="brand"><div class="brand-icon">✦</div><span>WHAT WOULD YOU DO?</span></div>
-  <div class="header-note">CHOICES SHAPE YOUR STORY</div>
-</header>
+<div class="wrap">
+<header class="top"><div class="brand"><div class="logo">W?</div><span>WHAT WOULD YOU DO?</span></div><div class="tag">CHOICES REVEAL YOU</div></header>
 
-<main id="home-page" class="page active">
-  <section class="hero">
-    <div class="kicker">✦ &nbsp; A MULTIVERSE PERSONALITY QUEST</div>
-    <h1>당신의 선택이<br><span class="accent">당신을 말해준다.</span></h1>
-    <p>좀비가 나타나고, 왕국이 흔들리고, 우주선이 고장 났다.<br>각기 다른 세계에서 당신은 어떤 선택을 할까?<br>20개의 상황을 통과하고 나만의 생존 캐릭터를 발견해 보세요.</p>
-    <button class="btn btn-primary" onclick="startTest()">퀘스트 시작하기　↗</button>
-  </section>
-  <section class="world-grid">
-    <div class="world zombie"><span class="emoji">🧟</span><div><strong>좀비 아포칼립스</strong><small>생존과 위기 대응</small></div></div>
-    <div class="world kingdom"><span class="emoji">🏰</span><div><strong>판타지 왕국</strong><small>권력과 전략</small></div></div>
-    <div class="world space"><span class="emoji">🚀</span><div><strong>우주 탐사선</strong><small>미지와 논리</small></div></div>
-    <div class="world island"><span class="emoji">🏝️</span><div><strong>무인도 생존</strong><small>적응과 협력</small></div></div>
-    <div class="world mystery"><span class="emoji">🗝️</span><div><strong>미스터리 저택</strong><small>관찰과 추리</small></div></div>
-  </section>
-  <div class="info"><strong style="color:#e8d09b">HOW TO PLAY</strong><br>각 상황에서 가장 끌리는 행동을 선택하세요. 정답은 없습니다. 여러 선택의 패턴을 종합해 성향과 캐릭터를 보여줍니다. 결과는 자기 탐색을 위한 재미있는 참고 자료입니다.</div>
+<main id="home" class="page active">
+<section class="hero">
+<div class="eyebrow">A MULTIVERSE PERSONALITY GAME</div>
+<h1>선택의 순간,<br><span>진짜 내가 나타난다.</span></h1>
+<p class="intro">좀비가 몰려오고, 왕국이 흔들리고, 우주선에 문제가 생겼다.<br>당신이라면 어떤 선택을 할까? 20개의 상황을 지나 나만의 생존 스타일을 발견해 보세요.</p>
+<button class="btn primary" onclick="start()">모험 시작하기　→</button>
+</section>
+<div class="worlds">
+<div class="world"><div class="emoji">🧟</div><strong>좀비 서바이벌</strong><small>생존의 선택</small></div>
+<div class="world"><div class="emoji">🏰</div><strong>판타지 왕국</strong><small>권력과 전략</small></div>
+<div class="world"><div class="emoji">🚀</div><strong>우주 탐사</strong><small>미지의 위기</small></div>
+<div class="world"><div class="emoji">🏝️</div><strong>무인도 생존</strong><small>협력과 적응</small></div>
+</div>
+<div class="note">게임처럼 즐기는 자기탐색 테스트입니다. 답변에는 정답이나 오답이 없어요. 결과는 Big Five 성격 특성을 참고해 구성한 비공식 분석이며, 전문 심리검사나 진단을 대신하지 않습니다.</div>
 </main>
 
-<main id="quiz-page" class="page">
-  <section class="quiz-card">
-    <div class="quiz-top"><div id="world-tag" class="world-tag">WORLD / 01</div><div id="counter" class="counter">01 / 20</div></div>
-    <div class="progress"><div id="progress-fill"></div></div>
-    <div id="scene" class="scene zombie">
-      <div class="scene-art" id="scene-art" aria-hidden="true">
-        <div class="art-glow"></div><div class="art-landscape"></div>
-        <span class="art-object" id="art-object">🧟</span>
-        <span class="art-spark art-spark-one">✦</span><span class="art-spark art-spark-two">✧</span>
-      </div>
-      <span id="scene-icon" class="scene-icon">🧟</span><h2 id="question-title"></h2>
-    </div>
-    <p id="question-prompt" class="prompt"></p>
-    <div id="options" class="options"></div>
-    <div class="nav"><button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()">← 이전</button><button id="next-btn" class="btn btn-primary" onclick="nextQuestion()" disabled>다음 →</button></div>
-  </section>
+<main id="quiz" class="page">
+<div class="quizbox">
+<div class="scene" id="scene">
+<div class="scene-content"><div class="scene-icon" id="sceneIcon">🧟</div><div class="world-label" id="worldLabel"></div><h2 id="sceneTitle"></h2></div>
+</div>
+<div class="quizcontent">
+<div class="progressline"><span id="qCounter">상황 1 / 20</span><span id="qPercent">5%</span></div><div class="track"><div class="fill" id="fill"></div></div>
+<p class="situation" id="situation"></p>
+<div class="choices" id="choices"></div>
+<div class="nav"><button class="btn secondary" id="back" onclick="prev()">← 이전</button><button class="btn primary" id="next" onclick="next()" disabled>다음 상황 →</button></div>
+</div></div>
 </main>
 
-<main id="result-page" class="page">
-  <section class="result-head"><div class="kicker">QUEST COMPLETE</div><h1>당신의 선택이 만든 캐릭터</h1><p>당신이 여러 세계에서 보여준 선택 패턴을 모아 분석했어요.</p></section>
-  <section id="type-hero" class="type-hero"></section>
-  <h2 class="section-title">01. 당신의 성향 프로필</h2>
-  <section id="scores" class="scores"></section>
-  <h2 class="section-title">02. 당신의 플레이 스타일</h2>
-  <section class="two-col" id="insights"></section>
-  <h2 class="section-title">03. 다음 모험을 위한 힌트</h2>
-  <section class="two-col" id="advice"></section>
-  <div class="report-actions">
-    <button class="btn btn-primary" onclick="window.print()">결과 리포트 저장 / 인쇄</button>
-    <button class="btn btn-secondary" onclick="restartTest()">다시 플레이</button>
-    <button class="btn btn-secondary" onclick="goHome()">처음으로</button>
-  </div>
-  <p class="disclaimer">이 결과는 상황형 선택을 활용한 자기탐색용 콘텐츠입니다. Big Five의 다섯 특성을 참고하지만, 표준화·타당화된 심리검사나 진단 도구가 아닙니다. 점수와 유형은 선택지 설계에 따라 달라질 수 있습니다.</p>
+<main id="result" class="page">
+<div class="results-head"><div class="eyebrow">YOUR STORY, YOUR STYLE</div><h1>당신의 선택이 만든 결과</h1><p>각 상황에서 선택한 행동을 바탕으로 정리한 성향 리포트입니다.<br>한 가지 유형에 갇히기보다, 자신을 이해하는 힌트로 활용해 보세요.</p></div>
+<div class="result-hero"><div class="eyebrow">YOUR ARCHETYPE</div><h2 id="typeTitle"></h2><p id="typeDesc"></p></div>
+<div class="section"><h3>✦ 나의 성향 스탯</h3><div id="stats"></div></div>
+<div class="section"><h3>✦ 당신의 플레이 스타일</h3><div class="cards" id="reportCards"></div></div>
+<div class="section"><h3>✦ 다음 모험을 위한 팁</h3><div class="reportcard"><h4>성향을 더 잘 활용하려면</h4><p id="tip"></p></div></div>
+<div class="end">이 결과는 선택을 재미있게 돌아보기 위한 참고 자료입니다. 사람의 성격은 복합적이며 상황에 따라 달라질 수 있습니다.</div>
+<div class="actions"><button class="btn primary" onclick="window.print()">리포트 저장 / 인쇄</button><button class="btn secondary" onclick="start()">다시 플레이</button><button class="btn secondary" onclick="home()">처음으로</button></div>
 </main>
-<footer>WHAT WOULD YOU DO? · A STORY-DRIVEN PERSONALITY EXPERIENCE</footer>
+<footer class="end">WHAT WOULD YOU DO? · MULTIVERSE PERSONALITY GAME</footer>
 </div>
 
 <script>
-const traitInfo={
-  leadership:{name:"주도성",en:"Initiative",low:"상황을 주도하기보다 관찰하거나 다른 사람의 판단을 기다리는 편일 수 있어요.",high:"필요한 순간 먼저 나서 방향을 제안하고 역할을 정하는 경향이 있어요."},
-  logic:{name:"분석적 사고",en:"Analytical Thinking",low:"직관이나 관계, 즉각적인 행동을 우선할 수 있어요.",high:"정보를 정리하고 원인과 결과를 따져 해결책을 찾는 경향이 있어요."},
-  empathy:{name:"협력·공감",en:"Empathy & Cooperation",low:"독립적인 판단이나 효율을 우선하는 편일 수 있어요.",high:"다른 사람의 입장과 팀의 분위기를 고려해 선택하는 경향이 있어요."},
-  adaptability:{name:"적응·탐험",en:"Adaptability",low:"익숙하고 검증된 방식으로 안정성을 확보하려 할 수 있어요.",high:"변화와 새로운 가능성을 받아들이며 유연하게 움직이는 경향이 있어요."},
-  composure:{name:"침착성",en:"Composure",low:"위험이나 불확실성을 크게 의식하고 신중하게 반응할 수 있어요.",high:"압박이 있는 상황에서도 감정을 정돈하고 차분히 대응하는 경향이 있어요."}
+const traits={
+lead:{name:"주도력",en:"LEADERSHIP",desc:"먼저 움직이고 방향을 정하는 경향"},
+logic:{name:"분석력",en:"STRATEGY",desc:"정보를 모으고 차분히 판단하는 경향"},
+care:{name:"협력성",en:"TEAMWORK",desc:"사람을 살피고 함께 해결하는 경향"},
+bold:{name:"도전성",en:"BOLDNESS",desc:"위험을 감수하고 새 길을 시도하는 경향"},
+adapt:{name:"적응력",en:"ADAPTABILITY",desc:"상황에 맞춰 유연하게 바꾸는 경향"}
 };
-const worlds={
-  zombie:{name:"좀비 아포칼립스",tag:"ZOMBIE SURVIVAL",icon:"🧟"},
-  kingdom:{name:"판타지 왕국",tag:"FANTASY KINGDOM",icon:"🏰"},
-  space:{name:"우주 탐사선",tag:"DEEP SPACE",icon:"🚀"},
-  island:{name:"무인도 생존",tag:"ISLAND SURVIVAL",icon:"🏝️"},
-  mystery:{name:"미스터리 저택",tag:"THE MYSTERY MANOR",icon:"🗝️"}
-};
-// 선택지는 성향 차원을 조금씩 측정하는 창작형 문항. 각 선택지는 5개 축에 점수를 더한다.
-const Q=(world,title,prompt,options)=>({world,title,prompt,options});
-const questions=[
-Q("zombie","폐건물의 문이 흔들린다.","좀비 무리가 다가오고 있다. 함께 있는 생존자들은 혼란에 빠졌다. 먼저 무엇을 할까?",[
-["사람들을 모아 역할을 나누고 탈출 계획을 정한다.",[2,1,1,0,1]],
-["건물 구조와 출구부터 빠르게 확인한다.",[0,2,0,1,2]],
-["겁먹은 사람들을 진정시키고 함께 움직이자고 한다.",[0,0,2,1,1]],
-["위험을 감수하고 새로운 탈출 경로를 찾아본다.",[1,0,0,2,0]]]),
-Q("kingdom","왕의 밀서가 도착했다.","왕국의 두 세력이 충돌 직전이다. 당신은 왕의 조언자다.",[
-["양측의 대표를 불러 타협안을 제시한다.",[1,0,2,1,1]],
-["각 세력의 병력과 자원을 비교해 전략을 세운다.",[1,2,0,0,1]],
-["왕에게 결정을 맡기고 내 역할에 집중한다.",[0,1,1,0,2]],
-["직접 현장에 가서 예상 밖의 해결책을 찾는다.",[1,0,0,2,0]]]),
-Q("space","우주선의 산소 경고가 울린다.","원인을 알 수 없는 시스템 오류. 산소는 제한되어 있고 통신은 끊겼다.",[
-["승무원에게 역할을 배정하고 상황을 통제한다.",[2,1,1,0,1]],
-["로그를 분석해 오류의 원인을 추적한다.",[0,2,0,0,2]],
-["모두의 상태를 확인하고 불안감을 낮춘다.",[0,0,2,0,1]],
-["매뉴얼에 없는 우회 방법을 실험한다.",[0,1,0,2,0]]]),
-Q("island","해변에 밀려온 보급 상자.","상자 안에는 도구 몇 개와 식량이 있다. 생존자들 사이에 의견이 갈린다.",[
-["공평한 분배 원칙을 정하고 합의를 이끈다.",[1,0,2,0,1]],
-["필요한 물품을 분류하고 장기 계획을 세운다.",[1,2,0,0,1]],
-["당장 쓸 수 있는 도구부터 시험해 본다.",[0,1,0,2,0]],
-["갈등이 커지지 않도록 모두의 이야기를 듣는다.",[0,0,2,0,1]]]),
-Q("mystery","잠긴 방에서 이상한 소리가 들린다.","저택의 주인은 사라졌고, 복도 끝 방은 안에서 잠겨 있다.",[
-["단서를 모아 가능한 사건 순서를 추론한다.",[0,2,0,0,2]],
-["일행을 나눠 각자 다른 공간을 조사한다.",[2,1,0,1,0]],
-["함께 움직이며 서로의 안전을 확인한다.",[0,0,2,0,1]],
-["비밀 통로가 있을지 벽과 장식을 살펴본다.",[0,0,0,2,0]]]),
-Q("zombie","안전한 쉼터를 찾았다.","해가 지기 전 이동할 수 있는 시간은 한 시간. 어디로 향할까?",[
-["높은 곳을 확보해 주변을 관찰한다.",[1,2,0,0,2]],
-["사람들이 함께 머물 수 있는 튼튼한 건물을 찾는다.",[1,0,2,0,1]],
-["지도에 없는 길이라도 짧아 보이면 탐색한다.",[0,0,0,2,0]],
-["팀원들과 위험도를 비교해 결정한다.",[1,1,1,0,1]]]),
-Q("kingdom","용이 국경 마을을 위협한다.","군대가 도착하기 전 마을을 지킬 방법을 정해야 한다.",[
-["주민들을 대피시키고 방어선을 조직한다.",[2,1,2,0,1]],
-["용의 행동 패턴을 파악해 약점을 찾는다.",[0,2,0,1,2]],
-["용과 대화하거나 다른 방식으로 갈등을 풀어본다.",[0,0,2,2,0]],
-["위험을 감수하고 미끼 작전을 제안한다.",[1,1,0,2,0]]]),
-Q("space","미지의 행성에서 신호가 잡힌다.","탐사 규정은 착륙을 금지하지만 신호는 반복된다.",[
-["규정을 따르며 지구에 추가 지시를 요청한다.",[0,2,0,0,2]],
-["팀의 의견을 모아 제한된 탐사를 제안한다.",[1,0,2,1,1]],
-["직접 착륙해 신호의 정체를 확인한다.",[1,0,0,2,0]],
-["위험과 가능성을 계산해 단계적 접근을 설계한다.",[1,2,0,1,2]]]),
-Q("island","폭풍이 다가온다.","비바람이 강해지기 전까지 피난처를 보강해야 한다.",[
-["사람들을 나눠 각자 맡을 일을 정한다.",[2,1,1,0,1]],
-["지형을 분석해 가장 안전한 장소를 고른다.",[0,2,0,0,2]],
-["모두가 지치지 않게 협력하며 작업한다.",[0,0,2,0,1]],
-["주변 재료를 활용해 새로운 구조물을 만든다.",[0,1,0,2,0]]]),
-Q("mystery","벽난로 뒤에서 암호를 발견했다.","암호는 세 가지 방식으로 해석될 수 있다. 시간이 많지 않다.",[
-["기록을 비교해 가장 논리적인 해석을 고른다.",[0,2,0,0,2]],
-["일행의 직감을 듣고 함께 가설을 세운다.",[0,1,2,1,0]],
-["한 해석을 빠르게 시험해 본다.",[1,0,0,2,0]],
-["다른 단서를 더 찾아 확실성을 높인다.",[0,2,0,0,1]]]),
-Q("zombie","팀원 한 명이 다쳤다.","이동 속도가 느려지면 모두 위험해질 수 있다. 당신의 선택은?",[
-["팀을 이끌어 안전한 이동 방법을 결정한다.",[2,1,1,0,1]],
-["부상자의 상태와 주변 위험을 먼저 확인한다.",[0,2,2,0,2]],
-["다른 생존자들과 짐을 나눠 함께 이동한다.",[0,0,2,0,1]],
-["지형을 이용한 새로운 이동 경로를 찾는다.",[0,0,0,2,0]]]),
-Q("kingdom","왕위 계승자가 비밀을 털어놓는다.","그 비밀은 왕국의 미래에 영향을 줄 수 있다.",[
-["신뢰를 지키며 당사자와 해결책을 논의한다.",[0,0,2,0,1]],
-["정보의 진위와 파급 효과를 분석한다.",[0,2,0,0,2]],
-["필요한 사람들에게 알려 공동 대응을 준비한다.",[2,1,1,0,1]],
-["관습을 벗어난 새로운 선택지를 제시한다.",[0,0,0,2,0]]]),
-Q("space","AI가 예상과 다른 답을 내놓는다.","우주선의 자동 시스템이 임무와 다른 경로를 추천한다.",[
-["시스템을 중지하고 수동으로 통제한다.",[2,1,0,0,1]],
-["데이터와 알고리즘의 오류 가능성을 검증한다.",[0,2,0,0,2]],
-["승무원과 함께 장단점을 논의한다.",[0,0,2,1,1]],
-["추천 경로를 변형해 새로운 가능성을 시험한다.",[0,1,0,2,0]]]),
-Q("island","섬 안쪽에서 낯선 흔적을 발견했다.","사람이 남긴 흔적일 수도, 동물의 흔적일 수도 있다.",[
-["팀원과 함께 조심스럽게 추적한다.",[1,0,2,1,1]],
-["흔적의 모양과 주변 환경을 분석한다.",[0,2,0,0,2]],
-["혼자 먼저 가까이 가서 확인한다.",[0,0,0,2,0]],
-["위험할 수 있으니 위치를 기록하고 돌아간다.",[0,1,0,0,2]]]),
-Q("mystery","저택의 시계가 모두 멈췄다.","시계마다 멈춘 시간이 다르다. 무엇을 단서로 삼을까?",[
-["시간 차이를 계산해 사건의 흐름을 재구성한다.",[0,2,0,0,2]],
-["저택 사람들의 증언을 모아 공통점을 찾는다.",[0,1,2,0,1]],
-["가장 수상한 시계를 직접 분해한다.",[0,1,0,2,0]],
-["조사 순서를 정해 팀을 효율적으로 움직인다.",[2,1,0,0,1]]]),
-Q("zombie","무전기에서 구조 신호가 들린다.","신호는 멀리서 오지만, 함정일 가능성도 있다.",[
-["생존자들과 위험을 평가하고 이동 여부를 결정한다.",[1,2,1,0,2]],
-["신호의 방향과 간격을 분석한다.",[0,2,0,0,2]],
-["도움이 필요할 수 있으니 바로 출발한다.",[1,0,1,2,0]],
-["안전한 위치에서 먼저 답신을 보내본다.",[0,1,1,1,2]]]),
-Q("kingdom","적국이 휴전을 제안했다.","휴전 조건에는 불리한 조항이 포함되어 있다.",[
-["협상단을 꾸려 조건을 다시 조율한다.",[1,1,2,0,1]],
-["군사적·경제적 이득을 비교한다.",[0,2,0,0,2]],
-["기회를 잡아 전쟁을 끝내는 방향으로 움직인다.",[1,0,2,1,0]],
-["예상 밖의 제3의 협력안을 제시한다.",[0,1,1,2,0]]]),
-Q("space","우주선 밖에서 수리 작업을 해야 한다.","시간은 촉박하고 작업은 위험하다. 어떤 방식으로 접근할까?",[
-["작업 순서와 안전 절차를 꼼꼼히 확인한다.",[1,2,0,0,2]],
-["팀원과 역할을 나눠 서로 확인하며 진행한다.",[2,1,2,0,1]],
-["기존 절차에 없는 도구 활용법을 시도한다.",[0,1,0,2,0]],
-["가장 침착한 사람에게 핵심 작업을 맡긴다.",[1,1,0,0,2]]]),
-Q("island","식량을 구할 방법을 정해야 한다.","섬의 자원은 제한적이며, 내일 상황도 알 수 없다.",[
-["장기 보존과 공평한 배급을 계획한다.",[1,2,2,0,1]],
-["먹을 수 있는 자원을 직접 찾아 시험한다.",[0,0,0,2,0]],
-["각자의 능력에 맞게 채집과 탐색을 나눈다.",[2,1,1,1,1]],
-["우선 주변을 관찰해 자원 분포를 파악한다.",[0,2,0,1,2]]]),
-Q("mystery","마지막 문이 열렸다.","문 너머에는 사건의 진실을 밝힐 결정적인 단서가 있을 것 같다.",[
-["모두가 함께 들어가도록 제안한다.",[1,0,2,0,1]],
-["먼저 단서를 분석하고 함정 여부를 확인한다.",[0,2,0,0,2]],
-["망설이지 않고 문을 열고 들어간다.",[1,0,0,2,0]],
-["각자 예상하는 결과를 듣고 진입 방법을 정한다.",[1,1,2,0,1]]])
+// 각 상황에는 읽기 쉬운 선택지 3개. 선택에 따라 다섯 가지 스탯이 가산됨.
+const data=[
+["🧟","좀비 서바이벌 · DAY 1","대피소에 좀비가 다가온다","생존자들이 우왕좌왕한다. 지금 가장 먼저 할 일은?","사람들을 모아 역할을 나눈다.",{lead:2,care:1},"주변을 살피고 안전한 길을 찾는다.",{logic:2,adapt:1},"필요한 물건을 챙겨 바로 움직인다.",{bold:2,adapt:1}],
+["🏰","판타지 왕국 · 왕의 부름","왕이 중요한 임무를 맡긴다","왕국의 세력이 둘로 갈렸다. 당신은 누구와 움직일까?","내 편을 모아 계획을 세운다.",{lead:2,logic:1},"양쪽 이야기를 듣고 중간 길을 찾는다.",{care:2,adapt:1},"아무도 예상 못 한 길로 임무를 수행한다.",{bold:2,adapt:1}],
+["🚀","우주 탐사 · 경고등","우주선의 엔진이 멈췄다","산소는 충분하지만 시간이 많지 않다. 어떻게 할까?","팀원에게 역할을 나눠 수리를 시작한다.",{lead:1,care:1,logic:1},"원인을 확인하고 순서대로 점검한다.",{logic:2,adapt:1},"예비 장치를 이용해 빠르게 우회한다.",{bold:2,adapt:1}],
+["🏝️","무인도 · 첫날 밤","해변에 떠밀려온 물자를 발견했다","무엇부터 할지 의견이 갈린다. 당신의 선택은?","모두와 필요한 물자를 나눈다.",{care:2,lead:1},"물자를 분류하고 사용 계획을 세운다.",{logic:2,adapt:1},"섬 안쪽을 탐색해 더 많은 물자를 찾는다.",{bold:2,adapt:1}],
+["🧟","좀비 서바이벌 · 식량 부족","식량이 하루치밖에 남지 않았다","새로운 보급 장소를 찾아야 한다. 당신은?","탐색 팀을 꾸리고 직접 이끈다.",{lead:2,bold:1},"위험도와 거리를 따져 장소를 고른다.",{logic:2,adapt:1},"팀원들이 원하는 역할을 먼저 묻는다.",{care:2,adapt:1}],
+["🏰","판타지 왕국 · 비밀 통로","성 안에 숨겨진 통로가 있다는 소문","통로를 찾으면 전쟁을 피할 수도 있다. 어떻게 할까?","믿을 만한 동료와 함께 조사한다.",{care:2,logic:1},"단서를 모아 위치를 추리한다.",{logic:2,adapt:1},"위험을 감수하고 직접 찾아 나선다.",{bold:2,lead:1}],
+["🚀","우주 탐사 · 낯선 신호","정체를 알 수 없는 신호가 들려온다","신호는 가까운 행성에서 온 것 같다. 당신은?","팀의 의견을 모아 접촉 여부를 정한다.",{care:2,lead:1},"신호를 분석하고 출처부터 확인한다.",{logic:2,adapt:1},"직접 행성에 내려가 확인한다.",{bold:2,adapt:1}],
+["🏝️","무인도 · 폭풍 예보","큰 폭풍이 오늘 밤 섬을 덮친다","야영지를 옮길 시간이 부족하다. 어떻게 할까?","모두를 모아 대피 준비를 지휘한다.",{lead:2,care:1},"지형을 살펴 가장 안전한 곳을 찾는다.",{logic:2,adapt:1},"일단 짐을 들고 빠르게 이동한다.",{bold:2,adapt:1}],
+["🧟","좀비 서바이벌 · 낯선 생존자","길에서 다친 생존자를 만났다","그 사람을 도우면 이동이 늦어질 수 있다. 당신은?","함께 데려가고 돌볼 방법을 찾는다.",{care:2,adapt:1},"상태와 위험을 확인한 뒤 결정한다.",{logic:2,care:1},"위험을 감수하고 먼저 구조한다.",{bold:2,care:1}],
+["🏰","판타지 왕국 · 왕의 재판","친구가 큰 잘못을 저질렀다","왕은 당신에게 사실을 말하라고 한다. 어떻게 할까?","친구와 이야기하고 해결책을 찾는다.",{care:2,adapt:1},"사실과 증거를 정리해 말한다.",{logic:2,lead:1},"직접 왕 앞에 나서 책임을 설명한다.",{lead:2,bold:1}],
+["🚀","우주 탐사 · 제한된 연료","목표 행성까지 연료가 부족하다","돌아갈 연료도 고려해야 한다. 당신은?","팀과 목적지를 다시 정한다.",{care:2,adapt:1},"연료와 거리 계산 후 안전한 계획을 세운다.",{logic:2,lead:1},"위험을 감수하고 목표 행성으로 간다.",{bold:2,lead:1}],
+["🏝️","무인도 · 흔적 발견","숲속에서 사람의 발자국을 발견했다","누군가 섬에 있을 수 있다. 당신은?","동료들과 함께 흔적을 따라간다.",{care:2,lead:1},"발자국과 주변 흔적을 자세히 살핀다.",{logic:2,adapt:1},"혼자 먼저 가서 확인해 본다.",{bold:2,adapt:1}],
+["🧟","좀비 서바이벌 · 소음의 유혹","멀리서 구조 신호가 들린다","소리를 따라가면 좀비를 만날 수도 있다. 어떻게 할까?","팀을 꾸려 조심스럽게 확인한다.",{lead:1,care:1,logic:1},"주변 상황을 살핀 뒤 움직일지 정한다.",{logic:2,adapt:1},"망설이지 않고 신호가 있는 곳으로 간다.",{bold:2,care:1}],
+["🏰","판타지 왕국 · 협상 자리","적국의 사절이 평화 협상을 제안했다","믿기 어렵지만 전쟁을 멈출 기회다. 당신은?","협상팀을 꾸려 대화를 시작한다.",{lead:1,care:2},"조건과 숨은 의도를 꼼꼼히 살핀다.",{logic:2,adapt:1},"직접 만나 상대의 진심을 확인한다.",{bold:2,care:1}],
+["🚀","우주 탐사 · AI의 경고","선내 AI가 임무 중단을 권한다","AI는 위험 확률이 높다고 말한다. 당신은?","승무원과 함께 판단을 내린다.",{care:2,lead:1},"데이터를 다시 확인하고 근거를 찾는다.",{logic:2,adapt:1},"내 판단을 믿고 임무를 계속한다.",{bold:2,lead:1}],
+["🏝️","무인도 · 새로운 식물","먹을 수 있을지 모르는 열매를 발견했다","잘못 먹으면 위험할 수 있다. 당신은?","다른 생존자와 정보를 나눈다.",{care:2,adapt:1},"특징을 조사하고 안전성을 먼저 확인한다.",{logic:2,adapt:1},"조금 시험해 보며 가능성을 살핀다.",{bold:2,adapt:1}],
+["🧟","좀비 서바이벌 · 탈출 차량","작동하는 차량 한 대를 발견했다","차량에는 모두 탈 수 없을지도 모른다. 당신은?","모두가 탈 수 있는 방법을 찾는다.",{care:2,lead:1},"연료와 좌석을 확인해 현실적인 계획을 세운다.",{logic:2,adapt:1},"먼저 출발해 구조를 요청한다.",{bold:2,lead:1}],
+["🏰","판타지 왕국 · 마법의 유물","유물을 얻으면 강한 힘을 가질 수 있다","하지만 유물의 힘은 아직 알려지지 않았다. 당신은?","왕국을 위해 안전하게 보관한다.",{care:2,lead:1},"유물의 성질을 조사한다.",{logic:2,adapt:1},"직접 사용해 힘을 확인한다.",{bold:2,adapt:1}],
+["🚀","우주 탐사 · 낯선 행성","지도에 없는 행성이 눈앞에 나타났다","탐사 계획에 없던 장소다. 어떻게 할까?","팀과 상의해 탐사 여부를 정한다.",{care:2,lead:1},"위험 요소와 자원을 계산한다.",{logic:2,adapt:1},"새로운 발견을 위해 탐사한다.",{bold:2,adapt:1}],
+["🏝️","무인도 · 구조대의 흔적","섬 반대편에서 연기가 보인다","구조대일 수도 있고 다른 생존자일 수도 있다. 당신은?","모두와 함께 이동할 준비를 한다.",{care:2,lead:1},"연기의 위치와 바람 방향을 살핀다.",{logic:2,adapt:1},"먼저 달려가 상황을 확인한다.",{bold:2,adapt:1}],
+["🌌","마지막 선택 · 새로운 시작","모든 모험이 끝나고 새로운 길이 열린다","다음 여정을 앞둔 당신은 무엇을 선택할까?","동료들과 함께 새로운 팀을 만든다.",{care:2,lead:1},"충분히 계획을 세우고 출발한다.",{logic:2,adapt:1},"미지의 세계로 가장 먼저 나아간다.",{bold:2,adapt:1}]
 ];
 
-const sceneObjects = [
- "🧟","👑","🛰️","📦","🗝️",
- "🏚️","🐉","🪐","🌧️","📜",
- "🩹","🤫","🤖","👣","🕰️",
- "📻","🕊️","🧑‍🚀","🥥","🚪"
-];
-\nlet index=0,answers=Array(questions.length).fill(null);
-const $=id=>document.getElementById(id);
-function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});}
-function goHome(){showPage("home-page")}
-function startTest(){index=0;answers=Array(questions.length).fill(null);showPage("quiz-page");renderQuestion()}
-function renderQuestion(){
- const q=questions[index],w=worlds[q.world],n=index+1;
- $("world-tag").textContent=`${w.tag} · SCENE ${String(n).padStart(2,"0")}`;
- $("counter").textContent=`${String(n).padStart(2,"0")} / ${questions.length}`;
- $("progress-fill").style.width=`${n/questions.length*100}%`;
- $("scene").className=`scene ${q.world}`;
- $("scene-icon").textContent=w.icon;
- $("question-title").textContent=q.title;
- $("question-prompt").textContent=q.prompt;
- $("options").innerHTML="";
- q.options.forEach((o,i)=>{
-  const b=document.createElement("button");b.className="option"+(answers[index]===i?" chosen":"");
-  b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span>${o[0]}</span>`;
-  b.onclick=()=>{answers[index]=i;renderQuestion()};$("options").appendChild(b);
- });
- $("prev-btn").disabled=index===0;
- $("next-btn").disabled=answers[index]===null;
- $("next-btn").textContent=index===questions.length-1?"결과 보기 ✦":"다음 →";
-}
-function previousQuestion(){if(index>0){index--;renderQuestion()}}
-function nextQuestion(){if(answers[index]===null)return;if(index<questions.length-1){index++;renderQuestion()}else{calculateResults()}}
-function calculateResults(){
- const scores={leadership:0,logic:0,empathy:0,adaptability:0,composure:0};
- questions.forEach((q,qi)=>{const values=q.options[answers[qi]][1];Object.keys(scores).forEach((key,i)=>scores[key]+=values[i]);});
- const max=questions.length*2;
- Object.keys(scores).forEach(k=>scores[k]=Math.round(scores[k]/max*100));
- showResults(scores);
-}
 const archetypes=[
- {id:"leader",name:"전장의 지휘관",icon:"🛡️",desc:"혼란 속에서 방향을 잡고, 사람과 자원을 정리해 앞으로 나아가는 플레이어. 책임을 맡으면 상황을 구조화하고 팀이 움직일 수 있게 만드는 경향이 있어요.",strength:"팀에 방향이 필요할 때 먼저 나서고, 목표와 역할을 분명하게 만드는 능력이 빛날 수 있어요.",growth:"모든 결정을 혼자 떠안지 말고 팀원에게 판단과 역할을 나눠 보세요."},
- {id:"strategist",name:"차가운 전략가",icon:"♟️",desc:"눈앞의 소동보다 정보와 패턴을 먼저 살피는 플레이어. 충분히 파악한 뒤 움직이며, 복잡한 상황에서 원인과 결과를 연결하는 데 강점을 보일 수 있어요.",strength:"복잡한 문제를 분석하고 실수를 줄이는 데 강점이 있을 수 있어요.",growth:"분석이 길어질 때는 작은 행동으로 가설을 검증해 보세요."},
- {id:"guardian",name:"팀의 수호자",icon:"🧭",desc:"생존이나 승리만큼 함께하는 사람들의 상태를 중요하게 여기는 플레이어. 의견을 조율하고 팀의 신뢰를 지키는 선택이 자주 나타나요.",strength:"서로 다른 사람을 연결하고 협력 분위기를 만드는 데 강점이 있을 수 있어요.",growth:"모두를 챙기느라 자신의 필요를 뒤로 미루지 않도록 해보세요."},
- {id:"explorer",name:"경계 밖의 탐험가",icon:"🌌",desc:"정해진 길에만 머무르지 않고 새로운 가능성을 시험하는 플레이어. 낯선 상황을 호기심으로 바라보고, 유연한 해결책을 찾으려는 경향이 있어요.",strength:"변화에 적응하고 막힌 상황에서 새로운 선택지를 찾는 데 강점이 있을 수 있어요.",growth:"모험을 시작하기 전, 돌아올 경로나 최소한의 안전 기준도 함께 정해보세요."},
- {id:"anchor",name:"침착한 앵커",icon:"🪨",desc:"위험이 커질수록 상황을 차분히 살피고 안정성을 확보하려는 플레이어. 급하게 움직이기보다 믿을 수 있는 기준을 찾는 경향이 있어요.",strength:"압박 속에서 안정감을 유지하고 위험을 신중하게 다루는 데 강점이 있을 수 있어요.",growth:"안전한 기준을 확보했다면, 필요한 순간에는 결정을 실행으로 옮겨보세요."},
- {id:"hybrid",name:"다재다능한 조율자",icon:"✦",desc:"한 가지 방식에 고정되기보다 상황에 따라 분석, 협력, 실행을 조합하는 플레이어. 여러 성향이 비교적 균형 있게 나타났어요.",strength:"상황에 맞춰 다양한 접근을 선택할 수 있는 유연함이 강점일 수 있어요.",growth:"중요한 순간에 자신이 가장 우선하는 기준이 무엇인지 의식해 보세요."}
+{key:"lead",title:"전장의 지휘관",sub:"팀을 움직이는 리더",desc:"상황이 복잡해질수록 먼저 방향을 정하고 사람들을 움직이는 편입니다. 모두가 망설일 때 결정을 내리는 모습이 당신의 강점일 수 있어요.",tip:"결정을 내리는 힘에 다른 사람의 의견을 듣는 시간을 더해 보세요. 함께 만든 계획은 팀의 신뢰를 높일 수 있습니다."},
+{key:"logic",title:"냉철한 전략가",sub:"판을 읽는 분석가",desc:"급하게 움직이기보다 정보를 모으고 위험을 따져보는 편입니다. 복잡한 상황에서 차분하게 다음 수를 찾는 모습이 돋보일 수 있어요.",tip:"분석이 충분해졌다면 작은 행동으로 옮겨 보세요. 완벽한 정보가 없어도 경험을 통해 배울 수 있습니다."},
+{key:"care",title:"든든한 팀의 중심",sub:"함께 살아남는 조력자",desc:"사람들의 상태와 팀의 분위기를 중요하게 생각합니다. 혼자 앞서기보다 모두가 함께 갈 수 있는 길을 찾는 편일 수 있어요.",tip:"다른 사람을 챙기는 만큼 자신의 필요도 살펴보세요. 도움을 요청하는 것도 팀워크의 일부입니다."},
+{key:"bold",title:"겁 없는 개척자",sub:"새 길을 여는 모험가",desc:"익숙한 길에만 머무르지 않고 가능성을 향해 움직이는 편입니다. 새로운 상황에서 행동으로 답을 찾는 모습이 강점일 수 있어요.",tip:"용기 있는 시도에 안전 점검을 더하면 도전의 가능성이 커집니다. 중요한 선택에서는 잠깐 멈춰 위험도 살펴보세요."},
+{key:"adapt",title:"변화무쌍한 생존자",sub:"상황에 맞춰 변하는 유연한 플레이어",desc:"계획이 바뀌어도 상황을 살피며 새로운 방법을 찾는 편입니다. 정해진 답이 없는 문제에서 유연함을 발휘할 수 있어요.",tip:"유연함에 한두 가지 핵심 목표를 더해 보세요. 방향을 잃지 않으면서 변화에 대응할 수 있습니다."}
 ];
-function showResults(scores){
- const sorted=Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);
- const top=sorted[0],runner=sorted[1];
- let archetype;
- if(scores.leadership>=68&&top==="leadership")archetype=archetypes[0];
- else if(top==="logic"&&scores.logic>=60)archetype=archetypes[1];
- else if(top==="empathy"&&scores.empathy>=60)archetype=archetypes[2];
- else if(top==="adaptability"&&scores.adaptability>=60)archetype=archetypes[3];
- else if(top==="composure"&&scores.composure>=60)archetype=archetypes[4];
- else archetype=archetypes[5];
- $("type-hero").innerHTML=`<div class="type-icon">${archetype.icon}</div><div class="kicker">YOUR QUEST ARCHETYPE</div><h2>${archetype.name}</h2><p>${archetype.desc}</p>`;
- $("scores").innerHTML="";
- Object.keys(traitInfo).forEach(key=>{
-  const s=scores[key],t=traitInfo[key],high=s>=60;
-  const el=document.createElement("div");el.className="score-row";
-  el.innerHTML=`<div class="score-top"><div><div class="score-name">${t.name}</div><div class="score-en">${t.en}</div></div><div class="score-num">${s}<small style="font-size:11px;color:#aab1c2"> / 100</small></div></div><div class="bar"><div style="width:${s}%"></div></div><p>${high?t.high:t.low}</p>`;
-  $("scores").appendChild(el);
- });
- $("insights").innerHTML=`
- <div class="insight"><div class="icon">⚡</div><h3>당신의 플레이 강점</h3><p>${archetype.strength}</p></div>
- <div class="insight"><div class="icon">🧩</div><h3>선택의 패턴</h3><p>가장 높은 특성은 <b>${traitInfo[top].name}</b>(${scores[top]}점), 그다음은 <b>${traitInfo[runner].name}</b>(${scores[runner]}점)이에요. 이 조합이 이번 테스트에서 나타난 대표적인 선택 경향입니다.</p></div>`;
- $("advice").innerHTML=`
- <div class="insight"><div class="icon">🗺️</div><h3>다음 모험에서</h3><p>${archetype.growth}</p></div>
- <div class="insight"><div class="icon">🌱</div><h3>기억할 점</h3><p>한 번의 선택이 당신 전체를 정의하지는 않아요. 다른 상황에서는 다른 면이 드러날 수 있고, 성향은 경험과 환경에 따라 달라질 수 있습니다.</p></div>`;
- showPage("result-page");
-}
-function restartTest(){startTest()}
+let index=0, selected=Array(data.length).fill(null), scores={lead:0,logic:0,care:0,bold:0,adapt:0};
+function page(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function home(){page('home')}
+function start(){index=0;selected=Array(data.length).fill(null);scores={lead:0,logic:0,care:0,bold:0,adapt:0};render();page('quiz')}
+function render(){const q=data[index];document.getElementById('sceneIcon').textContent=q[0];document.getElementById('worldLabel').textContent=q[1];document.getElementById('sceneTitle').textContent=q[2];document.getElementById('situation').textContent=q[3];document.getElementById('qCounter').textContent=`상황 ${index+1} / ${data.length}`;document.getElementById('qPercent').textContent=`${Math.round((index+1)/data.length*100)}%`;document.getElementById('fill').style.width=`${(index+1)/data.length*100}%`;
+const opts=[{text:q[4],pts:q[5]},{text:q[6],pts:q[7]},{text:q[8],pts:q[9]}];const el=document.getElementById('choices');el.innerHTML='';opts.forEach((o,i)=>{let b=document.createElement('button');b.className='choice'+(selected[index]===i?' chosen':'');b.innerHTML=`<span class="letter">${['A','B','C'][i]}</span><span>${o.text}</span>`;b.onclick=()=>{selected[index]=i;render()};el.appendChild(b)});document.getElementById('back').disabled=index===0;document.getElementById('next').disabled=selected[index]===null;document.getElementById('next').textContent=index===data.length-1?'결과 보기 ✦':'다음 상황 →'}
+function prev(){if(index>0){index--;render()}}
+function next(){if(selected[index]===null)return;if(index<data.length-1){index++;render()}else{result()}}
+function result(){scores={lead:0,logic:0,care:0,bold:0,adapt:0};data.forEach((q,i)=>{let chosen=selected[i];let pts=q[5+chosen*2];Object.keys(pts).forEach(k=>scores[k]+=pts[k])});let total=Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);let best=archetypes.find(a=>a.key===total[0])||archetypes[0];document.getElementById('typeTitle').textContent=best.title+' · '+best.sub;document.getElementById('typeDesc').textContent=best.desc;
+const stats=document.getElementById('stats');stats.innerHTML='';let max=Math.max(...Object.values(scores));Object.keys(traits).forEach(k=>{let s=scores[k],pct=Math.round(s/Math.max(max,1)*100);let div=document.createElement('div');div.className='trait';div.innerHTML=`<div class="traittop"><span>${traits[k].name}<small>${traits[k].en}</small></span><span class="score">${s} pt</span></div><div class="bar"><span style="width:${pct}%"></span></div><p>${traits[k].desc}</p>`;stats.appendChild(div)});
+let cards=document.getElementById('reportCards');cards.innerHTML='';let ranked=Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);[['강점으로 나타난 성향',ranked[0]],['함께 발휘되는 성향',ranked[1]],['다른 방식의 선택',ranked[ranked.length-1]],['당신의 플레이 팁',null]].forEach(([title,k],i)=>{let d=document.createElement('div');d.className='reportcard';d.innerHTML=k?`<div class="mini">${['🏆','✨','🧭'][i]}</div><h4>${title} · ${traits[k].name}</h4><p>${traits[k].desc}. 다양한 상황에서 이 성향이 어떻게 나타나는지 돌아보세요.</p>`:`<div class="mini">💡</div><h4>${title}</h4><p>${best.tip}</p>`;cards.appendChild(d)});document.getElementById('tip').textContent=best.tip;page('result')}
 </script>
 </body>
 </html>
